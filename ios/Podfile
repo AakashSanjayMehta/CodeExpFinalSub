@@ -12,8 +12,11 @@ target 'TestTaker' do
     :hermes_enabled => false
   )
 
+  pod 'RNPDF', :path => '../node_modules/react-native-view-pdf'
+
   target 'TestTakerTests' do
     inherit! :complete
+    pod ‘GoogleSignIn’, ‘~> 5.0.2’
     # Pods for testing
   end
 
