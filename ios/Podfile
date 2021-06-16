@@ -17,6 +17,7 @@ target 'TestTaker' do
   target 'TestTakerTests' do
     inherit! :complete
     pod ‘GoogleSignIn’, ‘~> 5.0.2’
+    pod 'Firebase/Analytics'
     # Pods for testing
   end
 

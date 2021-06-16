@@ -59,10 +59,11 @@ const Section = ({ children, title }): Node => {
 	);
 };
 
-const AssignmentTimer = () => {
+const AssignmentTimer = ({ navigation, route }) => {
+	const { ...item } = route.params;
 
-	const [secondsLeft, setSecondsLeft] = useState(3601);
-	const [timerOn, setTimerOn] = useState(false);
+	const [secondsLeft, setSecondsLeft] = useState(item.Duration*60);
+	const [timerOn, setTimerOn] = useState(true);
 	useEffect(() => {
 		if (timerOn) startTimer();
 		else BackgroundTimer.stopBackgroundTimer();
@@ -72,7 +73,11 @@ const AssignmentTimer = () => {
 	}, [timerOn]);
 
 	useEffect(() => {
-		if (secondsLeft === 0) BackgroundTimer.stopBackgroundTimer()
+		if (secondsLeft === 0){
+			BackgroundTimer.stopBackgroundTimer()
+			navigation.navigate('Submit', { ...item})
+		}
+
 	}, [secondsLeft])
 	const isDarkMode = useColorScheme() === 'dark';
 
@@ -104,46 +109,75 @@ const AssignmentTimer = () => {
 	return (
 		<SafeAreaView style={backgroundStyle}>
 			<StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-
-
-			<View style={styles.container}>
-				<Text style={styles.time}>Time Left...</Text>
-				<Text>{clockify().displayHours} Hours {clockify().displayMins} Mins{" "}
-					{clockify().displaySecs} Secs</Text>
-
-			</View>
-			<View style={{height: '40%'}}>
-				<PDFView
-					fadeInDuration={250.0}
-					style={{ flex: 1, backgroundColor: 'yellow', height: '40%'}}
-					resource={resources['url']}
-					onLoad={() => console.log(`PDF rendered from ${'url'}`)}
-					onError={() => console.log('Cannot render PDF', error)} />
-			</View>
 			<View
 				style={{
-					backgroundColor: isDarkMode ? Colors.black : Colors.white,
+					paddingLeft: 8,
+					paddingRight: 8,
+					height: '100%'
 				}}>
 
 
 
+				<View style={{
+					paddingVertical: 16,
+					alignSelf: 'center'
+				}}>
+					<Text style={{
+						fontSize: 16,
+						fontWeight: '500',
+						alignSelf: 'center',
+						paddingBottom: 8,
+					}}>Time Left</Text>
+					<Text style={{
+						fontSize: 16,
+						fontWeight: '500',
+						alignSelf: 'center',
+					}}
+					>{clockify().displayHours} Hours {clockify().displayMins} Mins{" "}
+						{clockify().displaySecs} Secs</Text>
 
-					<TouchableOpacity onPress={() => setTimerOn(timerOn => !timerOn)} >
+				</View>
+				<View style={{ height: '80%', justifyContent:'center' }}>
+					<PDFView
+						fadeInDuration={250.0}
+						style={{ flex: 1, backgroundColor: 'grey', height: '100%' }}
+						resource={resources['url']}
+						onLoad={() => console.log(`PDF rendered from ${'url'}`)}
+						onError={() => console.log('Cannot render PDF', error)} />
+				</View>
+
+				{/* <TouchableOpacity onPress={() => setTimerOn(timerOn => !timerOn)} >
 						<Text>Press Here</Text>
 					</TouchableOpacity>
+ */}
+				<TouchableOpacity
+					style={{
+						backgroundColor: "#006C67",
+						alignSelf: 'center',
+						borderRadius: 7.5,
+						width: '30%',
+						position: 'absolute',
+						bottom: 16
+					}}
+					onPress={() => navigation.navigate('Submit',{ ...item})}>
+					<View style={{
+						paddingTop: 12,
+						paddingBottom: 12,
+
+					}}>
+						<Text style={{
+							fontWeight: 'bold',
+							color: "white",
+							textAlign: "center",
+							fontSize: 16,
+						}}>Submit early</Text>
+					</View>
+				</TouchableOpacity>
 
 
-
-
-
-					<TouchableOpacity>
-						<Text>Submit early</Text>
-					</TouchableOpacity>
 
 
 			</View>
-
-
 
 		</SafeAreaView>
 	)

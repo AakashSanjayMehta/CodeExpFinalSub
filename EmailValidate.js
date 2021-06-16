@@ -80,47 +80,50 @@ const EmailValidate = ({ navigation }) => {
     return (
 
         <SafeAreaView>
-            <View style={{ height: '100%' }}>
-                <StatusBar barStyle='light-content' />
-                <Text style={{
-                    fontSize: 32,
-                    fontWeight: 'bold',
-                    color: '#003844',
-                    alignSelf: 'center',
-                    paddingTop: 64,
-                }}>TestTaker</Text>
+            <View>
+                <View style={{ height: '100%' }}>
+              
+                        <Text style={{
+                            fontSize: 32,
+                            fontWeight: 'bold',
+                            color: '#003844',
+                            alignSelf: 'center',
+                            paddingTop: 64,
+                        }}>TestTaker</Text>
 
-                <Text style={{
-                    fontSize: 20,
-                    alignSelf: 'center',
-                    marginTop: 64
-                }}>Tap sign in to get get started!</Text>
+                        <Text style={{
+                            fontSize: 18,
+                            alignSelf: 'center',
+                            marginTop: 256
+                        }}>Tap sign in to get get started!</Text>
 
 
-                <View style={styles.main}>
-                    {!user.idToken ?
-                        <GoogleSigninButton
-                            style={{ width: 192, height: 48 }}
-                            size={GoogleSigninButton.Size.Wide}
-                            color={GoogleSigninButton.Color.Dark}
-                            onPress={() => navigation.navigate('Subjects')}
-                        /> :
-                        <TouchableOpacity onPress={signOut}>
-                            <Text>Logout</Text>
-                        </TouchableOpacity>
-                    }
+                        <View style={styles.main}>
+                            {!user.idToken ?
+                                <GoogleSigninButton
+                                    style={{ width: 192, height: 48 }}
+                                    size={GoogleSigninButton.Size.Wide}
+                                    color={GoogleSigninButton.Color.Dark}
+                                    onPress={() => navigation.navigate('Subjects')}
+                                /> :
+                                <TouchableOpacity onPress={signOut}>
+                                    <Text>Logout</Text>
+                                </TouchableOpacity>
+                            }
+                        </View>
                 </View>
 
-            </View>
+                </View>
         </SafeAreaView>
-    )
+            )
 }
 
-const styles = StyleSheet.create({
-    main: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+            const styles = StyleSheet.create({
+                main: {
+                flex: 1,
+            marginTop: 18,
+            marginBottom: 300,
+            alignItems: 'center',
     }
 })
-export default EmailValidate
+            export default EmailValidate

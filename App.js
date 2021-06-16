@@ -28,7 +28,9 @@ const Stack = createStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{
+        headerShown: false
+      }}>
         {/* Starting screen */}
         <Stack.Screen name="Login" component={EmailValidate} />
 
